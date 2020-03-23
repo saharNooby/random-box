@@ -1,0 +1,13 @@
+# The full documentation is at https://dev.bukkit.org/projects/random_box/pages/main/documentation
+
+# Default locales: en (English), ru (Russian), es (Spanish), de (German), zhtw (Traditional Chinese), zhcn (Simplified Chinese).
+locale: en
+
+# Enables randombox.infinitebox permission.
+useInfinitePermission: false
+
+# If there is not enough space in player inventory when giving box using /givebox, box will be dropped at the player location.
+dropBoxWhenNotEnoughSpace: true
+
+# If true, entities will receive no damage from fireworks spawned due to box effects.
+disableDamageFromBoxFirework: true

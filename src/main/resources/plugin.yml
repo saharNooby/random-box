@@ -1,0 +1,66 @@
+name: RandomBox
+description: Random boxes in Minecraft!
+website: 'www.spigotmc.org/resources/randombox.3217/'
+main: me.saharnooby.plugins.randombox.RandomBox
+version: '2.8'
+author: saharNooby
+api-version: '1.13'
+softdepend: ['Vault', 'NoCheatPlus']
+commands:
+  randombox:
+    description: 'Main command'
+    usage: '§3[§bRandomBox§3] §fUse §6/randombox <reload|list>'
+    aliases: ['rb']
+  givebox:
+    description: 'Give the box to player'
+    usage: |-
+      §3[§bRandomBox§3] §fUse §6/givebox <player name|selector> <box id> [amount]
+      §3[§bRandomBox§3] §fSelector format: §6@x[option name=option value, ...]§f. All options are optional.
+      §3[§bRandomBox§3] §fAvailable selectors:
+      §3[§bRandomBox§3] §7- §6@a §f(all players)
+      §3[§bRandomBox§3] §7- §6@p §f(nearest players to the sender or the specified location, one player by default; options are: limit, world, x, y, z)
+      §3[§bRandomBox§3] §7- §6@r §f(random players, one player by default; options are: limit)
+  openbox:
+    description: 'Open box that is in your hand'
+    usage: '§3[§bRandomBox§3] §fUse §6/openbox'
+  randomblock:
+    description: 'Create or remove a RandomBlock'
+    usage: '§3[§bRandomBox§3] §fUse §6/randomblock <remove|create <box id> <price>'
+    aliases: ['rblock']
+  forceopenbox:
+    description: 'Open specified box'
+    usage: '§3[§bRandomBox§3] §fUse §6/forceopenbox <box id>'
+permissions:
+  randombox.*:
+    description: 'Allows you to do anything.'
+    default: op
+    children:
+      randombox.main: true
+      randombox.main.reload: true
+      randombox.openbox: true
+      randombox.forceopenbox: true
+      randombox.givebox: true
+      randombox.randomblock: true
+      randombox.infinitebox: true
+      randombox.open.*: true
+  randombox.main:
+    description: 'Allows you to use /randombox command.'
+    default: op
+  randombox.main.reload:
+    description: 'Allows you to reload plugin config.'
+    default: op
+  randombox.openbox:
+    description: 'Allows you to open boxes.'
+    default: true
+  randombox.forceopenbox:
+    description: 'Allows you to open boxes without the box item.'
+    default: op
+  randombox.givebox:
+    description: 'Allows you to give boxes.'
+    default: op
+  randombox.randomblock:
+    description: 'Allows you to create and remove RandomBlocks.'
+    default: op
+  randombox.infinitebox:
+    description: 'The box will not disappear after opening.'
+    default: false

@@ -1,0 +1,192 @@
+# The full documentation is at https://dev.bukkit.org/projects/random_box/pages/main/documentation
+# This is the 1.8 - 1.12 version of the default box
+
+boxItem: STORAGE_MINECART
+
+boxName: '&dWarrior box'
+
+lore:
+  - '&eSome test'
+  - '&edescription...'
+  - '&7--------------'
+  - 'items 0 &7%ordinal%. &ex%amount% %name%'
+  - '&7--------------'
+  - '&eRare box'
+
+addGlow: true
+
+unstackable: false
+
+checkPermission: false
+
+openWhenClicked: true
+
+itemsToSelectCount: 3
+
+# List of limits: each limit specifies how frequently players can open this box.
+# You can set different limits for different players, detected by permission.
+limits:
+  # Interval specifies minimum time between box openings.
+  # Available time units: s (sec), m (min), h (hours), d (days).
+  - interval: 1m
+    # Message that is sent when player tries to open a box too fast.
+    # You can localize time units in the placeholder, for example (Russian): %remains[с.,м.,ч.,д.]%
+    message: '&cYou can open this box only after %remains[s.,m.,h.,day(s)]%!'
+    permissions:
+      # Permission that is required in order for this limit to work.
+      # If player does not have this permission, limit will not be checked.
+      # If not specified, the limit will be checked for any player.
+      check: 'some.permission.to.check'
+      # Permission for bypassing the limit.
+      # If not specified, the limit can't be bypassed even by OPs.
+      bypass: 'some.permission.to.bypass'
+
+gui:
+  enabled: true
+  rolling:
+    - {period: 1, iterations: 50}
+    - {period: 2, iterations: 20}
+    - {period: 3, iterations: 10}
+    - {period: 4, iterations: 5}
+  window:
+    type: CHEST
+    format:
+      - '@@@###@@@'
+      - 'abcDEFghi'
+      - '@@@###@@@'
+    fillers:
+      '@':
+        item: {id: STAINED_GLASS_PANE, data: 15, period: 20}
+        onStop:
+          item: {id: AIR}
+      '#':
+        animated:
+          - {id: STAINED_GLASS_PANE, data: 4, period: 10}
+          - {id: STAINED_GLASS_PANE, data: 5, period: 10}
+
+effects:
+  open:
+    firework:
+      type: BALL_LARGE
+      colors: ['#FF0000', '#00FF00', 'BLUE']
+      fadeColors: ['GRAY', 'BLACK']
+      flicker: true
+      trail: false
+      power: 3
+    sound:
+      sound: BLOCK_CHEST_OPEN
+      volume: 1.0
+      pitch: 1.0
+    broadcast: '&ePlayer &6%player% &eopens &6Warrior Box &eright now!'
+  move:
+    sound: {sound: UI_BUTTON_CLICK}
+  drop:
+    sound: {sound: BLOCK_ANVIL_LAND}
+    firework:
+      type: STAR
+      colors: ['RED']
+  close:
+    sound: {sound: BLOCK_CHEST_CLOSE}
+
+items:
+  item1:
+    item: DIAMOND_SWORD
+    data: 0
+    amount: 1
+    name: '&cDiamond sword'
+    lore:
+      - '&7This sword dropped'
+      - '&7from a box.'
+    enchants:
+      sharpness: 8
+      unbreaking: 5
+      fire: 4
+      knockback: 2
+    dropEffect:
+      firework:
+        type: BALL_LARGE
+        colors: ['RED', 'ORANGE']
+        fadeColors: ['GRAY']
+        power: 0
+      sound: {sound: ENTITY_GENERIC_EXPLODE}
+      broadcast: '&6%player% got an amazing diamond sword from RandomBox!'
+    chance: 2
+  item2:
+    item: IRON_SWORD
+    amount: 1
+    name: '&6Iron sword'
+    enchants:
+      sharpness: 5
+      unbreaking: 3
+      knockback: 2
+    chance: 3
+  item3:
+    item: STONE_SWORD
+    amount: 1
+    name: '&eStone sword'
+    enchants:
+      sharpness: 3
+      unbreaking: 3
+      knockback: 2
+    chance: 4
+  item4:
+    item: BOW
+    amount: 1
+    name: '&eBow'
+    enchants:
+      power: 3
+      unbreaking: 3
+      infinity: 1
+    chance: 6
+  item5:
+    item: GOLDEN_APPLE
+    name: '&rGolden apple'
+    dontAssignName: true
+    amount: 1-8
+    chance: 8
+  item6:
+    commands:
+      command1:
+        line: 'xp 10L %player%'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXP_BOTTLE
+    name: '&rExp (10 levels)'
+    amount: 10
+    chance: 30
+  item7:
+    commands:
+      command1:
+        line: 'xp 6L %player%'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXP_BOTTLE
+    name: '&rExp (6 levels)'
+    amount: 6
+    chance: 35
+  item8:
+    commands:
+      command1:
+        line: 'xp 3L %player%'
+        fromConsole: true
+    dontGiveItem: true
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    item: EXP_BOTTLE
+    name: '&rExp (3 levels)'
+    amount: 3
+    chance: 45
+  item9:
+    box: 9901
+    name: '&eBonus Box'
+    inBoxLoreFormat: '&7%ordinal%. %name%'
+    chance: 2
+  item10:
+    # Example of a textured head. 'item' must be PLAYER_HEAD (SKULL_ITEM for 1.12 and lower), and 'texture' must specify base64 texture value.
+    item: SKULL_ITEM
+    data: 3
+    texture: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWI4OWYwNzFjOThhNWZlYTM1OGQwOGE1ODZmY2E0YmM3MzliMGQ5ZGJhMGE1NmQxMDczYmM2ZDgzODcyZDI2YSJ9fX0='
+    name: '&eBurger'
+    amount: 1
+    chance: 2

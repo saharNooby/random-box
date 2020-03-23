@@ -1,0 +1,45 @@
+# Translation author: Small_Ku
+# Based on 'chengzi' zhcn version.
+
+# 聊天信息中的消息.
+# 可以用 &<颜色代码> 给消息增加颜色.
+# 颜色代码:
+# minecraft.gamepedia.com/Formatting_codes
+# 你可以用 & 代替 §
+
+itemsToDrop: '奖品列表:'
+
+# 消息前缀
+prefix: '&3[&bRandomBox&3] &6'
+
+# 消息
+configReloaded: '配置文件已重载.'
+boxGiven: '成功给予箱子.'
+multipleBoxesGiven: '给予了 %amount% 的箱子.'
+itemsDropped: '你获得了: '
+boxList: '已配置的奖励箱:'
+enteringCreatingMode: '创建一个奖励箱, 请右键到任何方块上.'
+randomBlockCreated: '奖励箱已成功创建.'
+randomBlockRemoved: '奖励箱已成功删除.'
+enteringRemovalMode: '你已进入了奖励箱删除模式. 右键: 删除方块, 左键: 退出模式.'
+exitingRemovalMode: '你已退出删除模式.'
+notARandomBox: '这个方块不是一个奖励箱.'
+
+# 综合错误
+noPermissions: '你没有权限这么做.'
+boxOpenError: '在打开箱子时发生了错误'
+boxGiveError: '在给予箱子时发生了错误'
+blockCreateError: '奖励箱创建错误'
+
+# 详细错误
+playerNotFound: '找不到玩家.'
+idMustBeNumerical: '箱子 ID 必须是一个数字.'
+notEnoughSpace: '你的背包没有足够的大小!'
+boxWasDroppedToGround: 'Your inventory is full, so box was dropped onto ground near you.'
+noSuchBox: '配置文件里不存在此 ID 的箱子.'
+
+notABox: '这不是一个箱子.'
+notAPlayer: '你不是一个玩家!'
+noPermissionsToOpen: '你没有权限来打开这个箱子.'
+notEnoughMoney: '你没有足够金钱.'
+openOnlyAfter: 'you can open the box only after %d seconds.'

@@ -1,0 +1,43 @@
+# Messages that are printed in chat.
+# Can be colored with &<color code>.
+# Color codes:
+# minecraft.gamepedia.com/Formatting_codes
+# You can use & instead of §.
+
+itemsToDrop: 'Drop items:'
+
+# Messages prefix.
+prefix: '&3[&bRandomBox&3] &6'
+
+# Messages.
+configReloaded: 'Config reloaded.'
+boxGiven: 'Box succesfully given.'
+multipleBoxesGiven: '%amount% boxes given.'
+itemsDropped: 'You got: '
+boxList: 'Boxes in config:'
+enteringCreatingMode: 'To create RandomBlock, click by right mouse button on some block.'
+randomBlockCreated: 'RandomBlock has been succesfully created.'
+randomBlockRemoved: 'RandomBlock has been succesfully removed.'
+enteringRemovalMode: 'You are now in RandomBlock removal mode. Right-click: remove block, Left-click: exit mode.'
+exitingRemovalMode: 'You have exited from removal mode.'
+notARandomBlock: 'This block is not a RandomBlock.'
+
+# General errors.
+noPermissions: 'You don''t have permission to do that.'
+boxOpenError: 'Box open error'
+boxGiveError: 'Box give error'
+boxEditError: 'Box edit error'
+blockCreateError: 'RandomBlock create error'
+
+# Detailed errors.
+playerNotFound: 'player not found.'
+idMustBeNumerical: 'box id must be a number.'
+notEnoughSpace: 'your inventory is full!'
+boxWasDroppedToGround: 'Your inventory is full, so box was dropped onto ground near you.'
+noSuchBox: 'there is no box in config with this id.'
+
+notABox: 'this is not a box.'
+notAPlayer: 'you are not a player!'
+noPermissionsToOpen: 'you don''t have permisson to open that box.'
+notEnoughMoney: 'you have not enough money.'
+openOnlyAfter: 'you can open the box only after %d seconds.'

@@ -1,0 +1,45 @@
+# Translation by https://www.spigotmc.org/members/zuhir.31452/
+
+# Mensajes que se muestran en el chat.
+# Pueden ser coloreados con &<codigo de color>.
+# Codigos de colores:
+# minecraft.gamepedia.com/Formatting_codes
+# Puedes usar & en lugar de §.
+
+itemsToDrop: 'Posibles objetos:'
+
+# Prefijo de los mensajes.
+prefix: '&3[&bRandomBox&3] &6'
+
+# Mensajes.
+configReloaded: 'Configuracion recargada.'
+boxGiven: 'Caja entregada correctamente.'
+multipleBoxesGiven: '%amount% cajas entregadas.'
+itemsDropped: 'Conseguiste: '
+boxList: 'Cajas en la configuracion:'
+enteringCreatingMode: 'Para crear un RandomBlock haz clic derecho en algun bloque.'
+randomBlockCreated: 'Has creado un RandomBlock.'
+randomBlockRemoved: 'Has eliminado el RandomBlock.'
+enteringRemovalMode: 'Ahora estas en modo eliminar RandomBlocks. Clic derecho: eliminar bloque, Clic izquierdo: salir del modo.'
+exitingRemovalMode: 'Has salido del modo eliminar RandomBlocks.'
+notARandomBlock: 'Ese no es un RandomBlock.'
+
+# Errores generales.
+noPermissions: 'No tienes permiso para hacer eso.'
+boxOpenError: 'Error al abrir la caja'
+boxGiveError: 'Error al entregar la caja'
+boxEditError: 'Error al editar la caja'
+blockCreateError: 'Error al crear el RandomBlock'
+
+# Errores detallados.
+playerNotFound: 'jugador no encontrado.'
+idMustBeNumerical: 'el id de la caja debe ser un numero.'
+notEnoughSpace: 'tu inventario esta lleno!'
+boxWasDroppedToGround: 'Tu inventario esta lleno, asi que la caja cayo cerca de ti.'
+noSuchBox: 'no hay una caja con esa id en la configuracion.'
+
+notABox: 'eso no es un caja.'
+notAPlayer: 'no eres un jugador!'
+noPermissionsToOpen: 'no tienes permiso para abrir esa caja.'
+notEnoughMoney: 'no tienes suficiente dinero.'
+openOnlyAfter: 'solo puedes abrir cajas cada %d segundos.'

@@ -1,0 +1,43 @@
+# Du kannst die Narichten im Chat faerben.
+# Mit Farbcodes &<Farbcode>.
+# Farbcodes:
+# minecraft.gamepedia.com/Formatting_codes
+# Du darfst nicht & mit § benutzen!
+
+itemsToDrop: 'Items zum droppen:'
+
+# Messages prefix.
+prefix: '&3[&bRandomBox&3] &6'
+
+# Messages.
+configReloaded: 'Config wurde neu geladen.'
+boxGiven: 'Box wurde erfolgreich vergeben.'
+multipleBoxesGiven: '%amount% wurden vergeben.'
+itemsDropped: 'Du bekommst: '
+boxList: 'Boxen in der Config:'
+enteringCreatingMode: 'Zum erstellen von einer RandomBlock klick mit der rechten Maustaste auf den Block.'
+randomBlockCreated: 'RandomBlock wurde erstellt.'
+randomBlockRemoved: 'RandomBlock wurde entfernt.'
+enteringRemovalMode: 'Du befindest dich im Entfernenmodus. Rechtsklick: entfernt Block, Linksklick: verlaesst den Modus.'
+exitingRemovalMode: 'Du hast den Entfernenmodus verlassen.'
+notARandomBlock: 'Das ist kein andomBlock.'
+
+# General errors.
+noPermissions: 'Du hast keine Berechtigung.'
+boxOpenError: 'Bei dem versuch eine Box zu oeffnen ist ein Fehler aufgetreten'
+boxGiveError: 'Bei dem versuch eine Box zu vergeben ist ein Fehler aufgetreten'
+boxEditError: 'Bei dem versuch eine Box zu bearbeiten ist ein Fehler aufgetreten'
+blockCreateError: 'Bei dem versuch eine RandomBox zu erstellen ist ein Fehler aufgetreten'
+
+# Detailed errors.
+playerNotFound: 'Spieler konnte nicht gefunden werden.'
+idMustBeNumerical: 'Die Box ID muss eine Nummer sein.'
+notEnoughSpace: 'Dein Inventar ist voll!'
+boxWasDroppedToGround: 'Your inventory is full, so box was dropped onto ground near you.'
+noSuchBox: 'Es gibt keine Bx mit dieser ID.'
+
+notABox: 'Das ist keine Box.'
+notAPlayer: 'Du musst diesen Kommand als Spieler ausfuehren!'
+noPermissionsToOpen: 'Du hast keine Rechte um diese Box zu oeffnen.'
+notEnoughMoney: 'Du hast nicht genuegend Geld.'
+openOnlyAfter: 'you can open the box only after %d seconds.'
