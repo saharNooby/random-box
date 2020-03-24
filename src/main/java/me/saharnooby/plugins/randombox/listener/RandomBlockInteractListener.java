@@ -26,7 +26,7 @@ public final class RandomBlockInteractListener implements Listener {
 		Player player = e.getPlayer();
 
 		if (player.getOpenInventory().getTopInventory().getType() != InventoryType.CRAFTING) {
-			// У игрока уже открыт какой-то инвентарь, скорее всего это коробка
+			// The player already has an opened inventory, it may be other box.
 			return;
 		}
 
