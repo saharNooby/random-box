@@ -112,7 +112,7 @@ public final class Box {
 			return;
 		}
 
-		List<DroppedItem> items = dropRandomItems();
+		List<DroppedItem> items = dropUniqueRandomItems();
 
 		playDropEffect(player, items);
 
@@ -134,14 +134,27 @@ public final class Box {
 		throw new RuntimeException();
 	}
 
-	private List<DroppedItem> dropRandomItems() {
-		List<DroppedItem> items = new ArrayList<>();
+	private List<DroppedItem> dropUniqueRandomItems() {
+		List<DropItem> items = new ArrayList<>(this.items);
+		List<DroppedItem> result = new ArrayList<>();
 
 		for (int i = 0; i < this.dropCount; i++) {
-			items.add(getRandomItem().toDropped());
+			// 'items' will always be non-empty since 'dropCount' can't be bigger than total item count.
+			int from = 0;
+			int rand = ThreadLocalRandom.current().nextInt(items.stream().mapToInt(DropItem::getChance).sum());
+
+			for (DropItem item : items) {
+				if (rand >= from && rand < from + item.getChance()) {
+					result.add(item.toDropped());
+					items.remove(item);
+					break;
+				}
+
+				from += item.getChance();
+			}
 		}
 
-		return items;
+		return result;
 	}
 
 	int getChanceSum() {
