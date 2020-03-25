@@ -101,6 +101,16 @@ public final class TargetSelector {
 
 		List<Player> list = loc.getWorld().getPlayers();
 
+		if (this.options.containsKey("r")) {
+			try {
+				double r = Double.parseDouble(this.options.get("r"));
+				double rSquared = r * r;
+				list.removeIf(p -> p.getLocation().distanceSquared(loc) > rSquared);
+			} catch (NumberFormatException e) {
+				throw new IllegalArgumentException("Invalid radius");
+			}
+		}
+
 		list.sort(Comparator.comparingDouble(p -> p.getLocation().distanceSquared(loc)));
 
 		return limit(list);

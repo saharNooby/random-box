@@ -18,7 +18,7 @@ commands:
       §3[§bRandomBox§3] §fSelector format: §6@x[option name=option value, ...]§f. All options are optional.
       §3[§bRandomBox§3] §fAvailable selectors:
       §3[§bRandomBox§3] §7- §6@a §f(all players)
-      §3[§bRandomBox§3] §7- §6@p §f(nearest players to the sender or the specified location, one player by default; options are: limit, world, x, y, z)
+      §3[§bRandomBox§3] §7- §6@p §f(nearest players to the sender or the specified location, one player by default; options are: limit, world, x, y, z, r (search radius))
       §3[§bRandomBox§3] §7- §6@r §f(random players, one player by default; options are: limit)
   openbox:
     description: 'Open box that is in your hand'
