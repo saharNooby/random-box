@@ -4,7 +4,9 @@ import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -73,8 +75,10 @@ public final class TargetSelector {
 	private List<Player> selectNearest() {
 		Location loc;
 
-		if (this.sender instanceof Player) {
-			loc = ((Player) this.sender).getLocation();
+		if (this.sender instanceof Entity) {
+			loc = ((Entity) this.sender).getLocation();
+		} else if (this.sender instanceof BlockCommandSender) {
+			loc = ((BlockCommandSender) this.sender).getBlock().getLocation();
 		} else {
 			loc = new Location(Bukkit.getWorlds().get(0), 0, 0, 0);
 		}
