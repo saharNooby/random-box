@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Method;
+import java.util.UUID;
 
 public final class RawChatUtil {
 
@@ -21,18 +22,22 @@ public final class RawChatUtil {
 
 		Object component = method.invoke(null, json);
 
+		Class<?> componentClass = NMSUtil.getNMSClass("IChatBaseComponent");
+
+		Class<?> packetClass = NMSUtil.getNMSClass("PacketPlayOutChat");
+
 		try {
-			return NMSUtil.getNMSClass("PacketPlayOutChat")
-					.getConstructor(NMSUtil.getNMSClass("IChatBaseComponent"), byte.class)
-					.newInstance(component, (byte) 0);
+			return packetClass.getConstructor(componentClass, byte.class).newInstance(component, (byte) 0);
 		} catch (NoSuchMethodException e) {
 			Class<?> typeClass = NMSUtil.getNMSClass("ChatMessageType");
 
 			Object type = typeClass.getField("CHAT").get(null);
 
-			return NMSUtil.getNMSClass("PacketPlayOutChat")
-					.getConstructor(NMSUtil.getNMSClass("IChatBaseComponent"), typeClass)
-					.newInstance(component, type);
+			if (NMSUtil.getMinorVersion() >= 16) {
+				return packetClass.getConstructor(componentClass, typeClass, UUID.class).newInstance(component, type, new UUID(0, 0));
+			} else {
+				return packetClass.getConstructor(componentClass, typeClass).newInstance(component, type);
+			}
 		}
 	}
 
