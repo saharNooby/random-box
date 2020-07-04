@@ -1,8 +1,5 @@
 package me.saharnooby.plugins.randombox.util;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import com.mojang.authlib.properties.PropertyMap;
 import lombok.NonNull;
 import me.saharnooby.plugins.randombox.nms.NMSUtil;
 import org.bukkit.Bukkit;
@@ -98,19 +95,21 @@ public final class ItemUtil {
 	}
 
 	public static void setBase64EncodedTextures(@NonNull ItemStack item, @NonNull String base64) {
-		GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-
-		PropertyMap propertyMap = profile.getProperties();
-
-		if (propertyMap == null) {
-			throw new IllegalStateException("Profile doesn't contain a property map");
-		}
-
-		propertyMap.put("textures", new Property("textures", base64));
-
 		ItemMeta meta = getOrCreateMeta(item);
 
 		try {
+			Object profile = Class.forName("com.mojang.authlib.GameProfile").getConstructor(UUID.class, String.class).newInstance(UUID.randomUUID(), null);
+
+			Object propertyMap = profile.getClass().getMethod("getProperties").invoke(profile);
+
+			if (propertyMap == null) {
+				throw new IllegalStateException("Profile doesn't contain a property map");
+			}
+
+			Object property = Class.forName("com.mojang.authlib.properties.Property").getConstructor(String.class, String.class).newInstance("textures", base64);
+
+			propertyMap.getClass().getMethod("put", Object.class, Object.class).invoke(propertyMap, "textures", property);
+
 			Field field = meta.getClass().getDeclaredField("profile");
 			field.setAccessible(true);
 			field.set(meta, profile);
@@ -125,7 +124,6 @@ public final class ItemUtil {
 		return NMSUtil.getMinorVersion() >= 14;
 	}
 
-	@SuppressWarnings("JavaReflectionMemberAccess")
 	public static void setCustomModelData(@NonNull ItemStack item, int data) {
 		if (!isCustomModelDataSupported()) {
 			throw new IllegalStateException("CustomModelData is not supported on " + NMSUtil.getVersion());
