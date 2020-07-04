@@ -6,16 +6,6 @@ import java.util.OptionalInt;
 
 public final class ColorCodeUtil {
 
-	public static String encodeToColorCodes(int value) {
-		StringBuilder builder = new StringBuilder();
-		
-		for (char c : String.valueOf(value).toCharArray()) {
-			builder.append("§").append(c);
-		}
-		
-		return builder.toString();
-	}
-	
 	public static OptionalInt decodeColorCodes(@NonNull String str) {
 		int resetIndex = str.indexOf("§r");
 

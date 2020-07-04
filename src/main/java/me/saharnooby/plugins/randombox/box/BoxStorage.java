@@ -2,9 +2,13 @@ package me.saharnooby.plugins.randombox.box;
 
 import lombok.NonNull;
 import me.saharnooby.plugins.randombox.RandomBox;
+import me.saharnooby.plugins.randombox.nms.NMSUtil;
 import me.saharnooby.plugins.randombox.util.ColorCodeUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.util.*;
@@ -13,6 +17,7 @@ import java.util.logging.Level;
 public final class BoxStorage {
 
 	private final Map<Integer, Box> boxes = new HashMap<>();
+	private final Map<String, Integer> boxesByItemName = new HashMap<>();
 	private final Map<Integer, String> parseErrors = new HashMap<>();
 
 	public void load() {
@@ -69,29 +74,66 @@ public final class BoxStorage {
 			return Optional.empty();
 		}
 
-		if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) {
+		if (!item.hasItemMeta()) {
 			return Optional.empty();
 		}
 
-		List<String> lore = item.getItemMeta().getLore();
+		ItemMeta meta = item.getItemMeta();
+
+		if (!meta.hasLore()) {
+			return Optional.empty();
+		}
+
+		List<String> lore = Objects.requireNonNull(meta.getLore());
 
 		if (lore.isEmpty()) {
 			return Optional.empty();
 		}
 
-		OptionalInt id = ColorCodeUtil.decodeColorCodes(lore.get(0));
+		// Try old method with id encoded as color codes (1.15 and older)
+		OptionalInt idFromColorCodes = ColorCodeUtil.decodeColorCodes(lore.get(0));
 
-		if (!id.isPresent()) {
-			return Optional.empty();
+		if (idFromColorCodes.isPresent()) {
+			return getBox(item, idFromColorCodes.getAsInt());
 		}
 
-		Box box = this.boxes.get(id.getAsInt());
+		// Try find id in the last line (new method)
+		String last = lore.get(lore.size() - 1);
 
-		if (box == null || item.getType() != box.getType()) {
-			return Optional.empty();
+		if (last.matches("(§.)*RB\\d+")) {
+			int idFromLastLine = Integer.parseInt(last.substring(last.indexOf("RB") + 2));
+
+			return getBox(item, idFromLastLine);
 		}
 
-		return Optional.of(box);
+		if (NMSUtil.getMinorVersion() >= 16) {
+			// Try find a box by the item name, if this box item was created in older
+			// version of the plugin and does not contain an id in the last line
+
+			if (this.boxesByItemName.isEmpty()) {
+				// Init cache
+				this.boxes.values().forEach(box -> {
+					// Sanitize box name, removing all unused color codes specified by the user
+					ItemMeta testMeta = Bukkit.getItemFactory().getItemMeta(Material.STONE);
+					testMeta.setDisplayName(box.getName());
+					this.boxesByItemName.put(testMeta.getDisplayName(), box.getId());
+				});
+			}
+
+			Integer idByName = this.boxesByItemName.get(meta.getDisplayName());
+
+			if (idByName != null) {
+				return getBox(item, idByName);
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	private Optional<Box> getBox(@NonNull ItemStack item, int id) {
+		Box box = this.boxes.get(id);
+
+		return box != null && item.getType() == box.getType() ? Optional.of(box) : Optional.empty();
 	}
 
 	public Map<Integer, Box> getBoxes() {

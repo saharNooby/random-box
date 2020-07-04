@@ -9,7 +9,6 @@ import me.saharnooby.plugins.randombox.box.item.DropItem;
 import me.saharnooby.plugins.randombox.box.limit.Limit;
 import me.saharnooby.plugins.randombox.message.MessageKey;
 import me.saharnooby.plugins.randombox.nms.NMSItemUtil;
-import me.saharnooby.plugins.randombox.util.ColorCodeUtil;
 import me.saharnooby.plugins.randombox.util.ConfigUtil;
 import me.saharnooby.plugins.randombox.util.ItemUtil;
 import org.bukkit.ChatColor;
@@ -94,13 +93,7 @@ public final class BoxParser {
 			lore = getDefaultBoxLore();
 		}
 
-		String encodedId = ColorCodeUtil.encodeToColorCodes(id) + "§r";
-
-		if (lore.isEmpty()) {
-			lore.add(encodedId);
-		} else {
-			lore.set(0, encodedId + lore.get(0));
-		}
+		lore.add("§8RB" + box.getId());
 
 		meta.setLore(lore);
 
@@ -127,7 +120,7 @@ public final class BoxParser {
 			int index = 1;
 			for (Object elem : section.getList("limits")) {
 				if (elem instanceof Map) {
-					box.limits.add(ConfigUtil.wrapExceptions(() -> new Limit(ConfigUtil.mapToSection((Map) elem)), "Invalid limit #" + index));
+					box.limits.add(ConfigUtil.wrapExceptions(() -> new Limit(ConfigUtil.mapToSection((Map<?, ?>) elem)), "Invalid limit #" + index));
 				}
 
 				index++;
