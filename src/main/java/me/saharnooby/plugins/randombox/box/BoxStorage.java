@@ -13,8 +13,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.io.File;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class BoxStorage {
+
+	private static final Pattern ID_LINE = Pattern.compile("(?:§.)*RB(\\d+)(?:-\\d+)?");
 
 	private final Map<Integer, Box> boxes = new HashMap<>();
 	private final Map<String, Integer> boxesByItemName = new HashMap<>();
@@ -100,8 +104,10 @@ public final class BoxStorage {
 		// Try find id in the last line (new method)
 		String last = lore.get(lore.size() - 1);
 
-		if (last.matches("(§.)*RB\\d+")) {
-			int idFromLastLine = Integer.parseInt(last.substring(last.indexOf("RB") + 2));
+		Matcher matcher = ID_LINE.matcher(last);
+
+		if (matcher.matches()) {
+			int idFromLastLine = Integer.parseInt(matcher.group(1));
 
 			return getBox(item, idFromLastLine);
 		}
