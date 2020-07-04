@@ -14,14 +14,14 @@ import me.saharnooby.plugins.randombox.box.item.DroppedItem;
 import me.saharnooby.plugins.randombox.box.limit.Limit;
 import me.saharnooby.plugins.randombox.message.MessageKey;
 import me.saharnooby.plugins.randombox.util.Hand;
-import me.saharnooby.plugins.randombox.util.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
@@ -60,16 +60,20 @@ public final class Box {
 		ItemStack item = this.item.clone();
 
 		if (this.unstackable) {
-			ItemUtil.setDisplayName(item, this.name + randomString());
+			addRandomStringToLore(item);
 		}
 
 		return item;
 	}
 
-	private static String randomString() {
-		Random r = ThreadLocalRandom.current();
-
-		return "§" + r.nextInt(10) + "§" + r.nextInt(10) + "§" + r.nextInt(10) + "§" + r.nextInt(10);
+	private void addRandomStringToLore(@NonNull ItemStack item) {
+		// Must have meta since all boxes have at least item name and box id in the lore
+		ItemMeta meta = Objects.requireNonNull(item.getItemMeta());
+		List<String> lore = new ArrayList<>(Objects.requireNonNull(meta.getLore()));
+		int i = lore.size() - 1;
+		lore.set(i, lore.get(i) + "-" + ThreadLocalRandom.current().nextInt(10_000));
+		meta.setLore(lore);
+		item.setItemMeta(meta);
 	}
 
 	public void open(@NonNull Player player, @NonNull Hand hand, boolean removeItem) {
