@@ -55,7 +55,7 @@ public final class ConfigUtil {
 	public static ItemStack parseItem(@NonNull ConfigurationSection section, @NonNull String materialKey, boolean parseName) {
 		Material type = parseMaterial(section.getString(materialKey));
 
-		assertFalse(type == null, "Invalid item material '" + section.getString(materialKey) + "'");
+		assertFalse(type == null, "Invalid material '" + section.getString(materialKey) + "'");
 
 		int amount = section.getInt("amount", 1);
 
@@ -100,7 +100,7 @@ public final class ConfigUtil {
 			try {
 				ItemUtil.setBase64EncodedTextures(item, texture);
 			} catch (Exception e) {
-				RandomBox.warn("Failed to set texture '" + texture + "' to " + item + ": " + e);
+				RandomBox.warn("Failed to set texture '" + texture + "' on " + item + ": " + e);
 			}
 		}
 
@@ -178,11 +178,10 @@ public final class ConfigUtil {
 		return builder.build();
 	}
 
-	@SuppressWarnings("unchecked")
-	public static ConfigurationSection mapToSection(@NonNull Map map) {
+	public static ConfigurationSection mapToSection(@NonNull Map<?, ?> map) {
 		Configuration section = new YamlConfiguration();
 
-		map.forEach((k, v) -> section.set((String) k, v instanceof Map ? mapToSection((Map) v) : v));
+		map.forEach((k, v) -> section.set((String) k, v instanceof Map ? mapToSection((Map<?, ?>) v) : v));
 
 		return section;
 	}
