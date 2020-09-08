@@ -16,12 +16,6 @@ public final class ItemUtil {
 		return item.hasItemMeta() ? item.getItemMeta() : Bukkit.getItemFactory().getItemMeta(item.getType());
 	}
 
-	public static void setDisplayName(@NonNull ItemStack item, String name) {
-		ItemMeta meta = getOrCreateMeta(item);
-		meta.setDisplayName(name);
-		item.setItemMeta(meta);
-	}
-
 	public static Enchantment parseEnchantment(@NonNull String id) {
 		switch (id.toLowerCase()) {
 			case "power":
