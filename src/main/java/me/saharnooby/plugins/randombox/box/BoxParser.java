@@ -8,16 +8,12 @@ import me.saharnooby.plugins.randombox.box.gui.format.GuiIteration;
 import me.saharnooby.plugins.randombox.box.item.DropItem;
 import me.saharnooby.plugins.randombox.box.limit.Limit;
 import me.saharnooby.plugins.randombox.message.MessageKey;
-import me.saharnooby.plugins.randombox.nms.NMSItemUtil;
 import me.saharnooby.plugins.randombox.util.ConfigUtil;
 import me.saharnooby.plugins.randombox.util.ItemUtil;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,21 +33,9 @@ public final class BoxParser {
 
 		// region Box item
 
-		Material type = ConfigUtil.parseMaterial(section.getString("boxItem"));
+		box.item = ConfigUtil.parseItem(section, "boxItem", false);
 
-		ConfigUtil.assertFalse(type == null || type == Material.AIR, "Invalid box material '" + section.getString("boxItem") + "'");
-
-		box.item = new ItemStack(type, 1, (short) section.getInt("data", 0));
-
-		String nbt = section.getString("nbtTag");
-
-		if (nbt != null) {
-			NMSItemUtil.setNBT(box.item, nbt);
-		}
-
-		if (section.contains("customModelData")) {
-			ItemUtil.setCustomModelData(box.item, section.getInt("customModelData"));
-		}
+		ConfigUtil.assertFalse(box.item.getAmount() != 1, "Box item amount must be equal to 1");
 
 		if (section.getBoolean("addGlow", true)) {
 			box.item.addUnsafeEnchantment(Enchantment.LUCK, 1);
@@ -80,10 +64,6 @@ public final class BoxParser {
 		ItemMeta meta = ItemUtil.getOrCreateMeta(box.item);
 
 		meta.setDisplayName(box.name);
-
-		if (meta instanceof SkullMeta && section.isString("skullOwner")) {
-			((SkullMeta) meta).setOwner(section.getString("skullOwner"));
-		}
 
 		List<String> lore;
 

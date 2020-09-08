@@ -15,6 +15,11 @@ lore:
 
 addGlow: true
 
+# Other box item settings:
+# - texture (base64 texture for player heads)
+# - nbtTag (arbitrary NBT tag, as used in /give command)
+# See https://minecraft.gamepedia.com/Tutorials/Command_NBT_tags#Items
+
 unstackable: false
 
 checkPermission: false
@@ -190,3 +195,5 @@ items:
     name: '&eBurger'
     amount: 1
     chance: 2
+    # Other drop item settings:
+    # - nbtTag (arbitrary NBT tag, as used in /give command)
