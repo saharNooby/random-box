@@ -10,7 +10,7 @@
 itemsToDrop: '奖品列表:'
 
 # 消息前缀
-prefix: '&3[&bRandomBox&3] &6'
+prefix: '&r[&b幸运抽奖&r] &6'
 
 # 消息
 configReloaded: '配置文件已重载.'
@@ -18,7 +18,7 @@ boxGiven: '成功给予箱子.'
 multipleBoxesGiven: '给予了 %amount% 的箱子.'
 itemsDropped: '你获得了: '
 boxList: '已配置的奖励箱:'
-enteringCreatingMode: '创建一个奖励箱, 请右键到任何方块上.'
+enteringCreatingMode: '成功创建一个奖励箱, 请右键到任何方块上.'
 randomBlockCreated: '奖励箱已成功创建.'
 randomBlockRemoved: '奖励箱已成功删除.'
 enteringRemovalMode: '你已进入了奖励箱删除模式. 右键: 删除方块, 左键: 退出模式.'
@@ -35,11 +35,11 @@ blockCreateError: '奖励箱创建错误'
 playerNotFound: '找不到玩家.'
 idMustBeNumerical: '箱子 ID 必须是一个数字.'
 notEnoughSpace: '你的背包没有足够的大小!'
-boxWasDroppedToGround: 'Your inventory is full, so box was dropped onto ground near you.'
+boxWasDroppedToGround: '背包已满,奖品掉到了地面上.'
 noSuchBox: '配置文件里不存在此 ID 的箱子.'
 
 notABox: '这不是一个箱子.'
-notAPlayer: '你不是一个玩家!'
+notAPlayer: '这个命令只能由玩家发出!'
 noPermissionsToOpen: '你没有权限来打开这个箱子.'
 notEnoughMoney: '你没有足够金钱.'
-openOnlyAfter: 'you can open the box only after %d seconds.'
+openOnlyAfter: '抽奖冷却中.请在 %d 秒后继续抽奖.'
