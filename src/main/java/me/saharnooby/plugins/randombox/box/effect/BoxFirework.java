@@ -3,7 +3,7 @@ package me.saharnooby.plugins.randombox.box.effect;
 import lombok.NonNull;
 import me.saharnooby.plugins.randombox.RandomBox;
 import me.saharnooby.plugins.randombox.listener.FireworkDamageListener;
-import me.saharnooby.plugins.randombox.nms.ReflectionUtil;
+import me.saharnooby.plugins.randombox.nms.FireworkUtil;
 import me.saharnooby.plugins.randombox.util.ConfigUtil;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -35,12 +35,7 @@ public final class BoxFirework {
 
 		if (this.power == 0) {
 			try {
-				ReflectionUtil.setField(meta, "power", -1);
-				firework.setFireworkMeta(meta);
-
-				Object nms = ReflectionUtil.getField(firework, "entity");
-				ReflectionUtil.setField(nms, "ticksFlown", 2);
-				ReflectionUtil.setField(nms, "expectedLifespan", 0);
+				FireworkUtil.explodeInstantly(firework, meta);
 			} catch (Exception e) {
 				RandomBox.warn("Failed to launch a firework: " + e);
 			}

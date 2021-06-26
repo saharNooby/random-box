@@ -10,10 +10,33 @@ import java.util.UUID;
 public final class RawChatUtil {
 
 	public static void broadcastRawMessage(@NonNull String json) throws ReflectiveOperationException {
+		if (NMSUtil.getMinorVersion() >= 17) {
+			broadcastRawMessageSpigotBungeeCordAPI(json);
+
+			return;
+		}
+
 		Object packet = createChatPacket(json);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			sendPacket(player, packet);
+		}
+	}
+
+	@SuppressWarnings("JavaReflectionInvocation")
+	private static void broadcastRawMessageSpigotBungeeCordAPI(@NonNull String json) throws ReflectiveOperationException {
+		Object component = Class.forName("net.md_5.bungee.chat.ComponentSerializer")
+				.getMethod("parse", String.class)
+				.invoke(null, json);
+
+		component = Class.forName("net.md_5.bungee.api.chat.TextComponent")
+				.getConstructor(Class.forName("[Lnet.md_5.bungee.api.chat.BaseComponent;"))
+				.newInstance(component);
+
+		Method sendMessage = Player.Spigot.class.getMethod("sendMessage", Class.forName("net.md_5.bungee.api.chat.BaseComponent"));
+
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			sendMessage.invoke(player.spigot(), component);
 		}
 	}
 

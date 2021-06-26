@@ -12,19 +12,35 @@ public final class NMSItemUtil {
 
 	public static String saveToNBT(ItemStack item) throws ReflectiveOperationException {
 		item = item == null ? new ItemStack(Material.AIR) : item;
+
 		Object copy = asNMSCopy(item);
-		Object compound = NMSUtil.getNMSClass("NBTTagCompound").newInstance();
-		copy.getClass().getMethod("save", compound.getClass()).invoke(copy, compound);
-		return compound.toString();
+
+		if (NMSUtil.getMinorVersion() >= 17) {
+			Object compound = NMSUtil.getNMSClass("nbt.NBTTagCompound").newInstance();
+			copy.getClass().getMethod("save", compound.getClass()).invoke(copy, compound);
+			return compound.toString();
+		} else {
+			Object compound = NMSUtil.getNMSClass("NBTTagCompound").newInstance();
+			copy.getClass().getMethod("save", compound.getClass()).invoke(copy, compound);
+			return compound.toString();
+		}
 	}
 
 	public static void setNBT(@NonNull ItemStack item, @NonNull String tag) {
 		try {
 			Object copy = asNMSCopy(item);
-			Object parsed = NMSUtil.getNMSClass("MojangsonParser").getMethod("parse", String.class).invoke(null, tag);
-			NMSUtil.getNMSClass("ItemStack").getMethod("setTag", NMSUtil.getNMSClass("NBTTagCompound")).invoke(copy, parsed);
-			Object meta = NMSUtil.getCraftClass("inventory.CraftItemStack").getMethod("getItemMeta", NMSUtil.getNMSClass("ItemStack")).invoke(null, copy);
-			item.setItemMeta((ItemMeta) meta);
+
+			if (NMSUtil.getMinorVersion() >= 17) {
+				Object parsed = NMSUtil.getNMSClass("nbt.MojangsonParser").getMethod("parse", String.class).invoke(null, tag);
+				NMSUtil.getNMSClass("world.item.ItemStack").getMethod("setTag", NMSUtil.getNMSClass("nbt.NBTTagCompound")).invoke(copy, parsed);
+				Object meta = NMSUtil.getCraftClass("inventory.CraftItemStack").getMethod("getItemMeta", NMSUtil.getNMSClass("world.item.ItemStack")).invoke(null, copy);
+				item.setItemMeta((ItemMeta) meta);
+			} else {
+				Object parsed = NMSUtil.getNMSClass("MojangsonParser").getMethod("parse", String.class).invoke(null, tag);
+				NMSUtil.getNMSClass("ItemStack").getMethod("setTag", NMSUtil.getNMSClass("NBTTagCompound")).invoke(copy, parsed);
+				Object meta = NMSUtil.getCraftClass("inventory.CraftItemStack").getMethod("getItemMeta", NMSUtil.getNMSClass("ItemStack")).invoke(null, copy);
+				item.setItemMeta((ItemMeta) meta);
+			}
 		} catch (ReflectiveOperationException e) {
 			RandomBox.getInstance().getLogger().log(Level.WARNING, "Failed to set item NBT", e);
 		}
