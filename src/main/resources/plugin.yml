@@ -2,7 +2,7 @@ name: RandomBox
 description: Random boxes in Minecraft!
 website: 'www.spigotmc.org/resources/randombox.3217/'
 main: me.saharnooby.plugins.randombox.RandomBox
-version: '2.9.3'
+version: '2.9.4'
 author: saharNooby
 api-version: '1.13'
 softdepend: ['Vault', 'NoCheatPlus']
