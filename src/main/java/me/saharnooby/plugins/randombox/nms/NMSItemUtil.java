@@ -30,7 +30,12 @@ public final class NMSItemUtil {
 		try {
 			Object copy = asNMSCopy(item);
 
-			if (NMSUtil.getMinorVersion() >= 17) {
+			if (NMSUtil.getMinorVersion() >= 19) {
+				Object parsed = NMSUtil.getNMSClass("nbt.MojangsonParser").getMethod("a", String.class).invoke(null, tag);
+				NMSUtil.getNMSClass("world.item.ItemStack").getMethod("c", NMSUtil.getNMSClass("nbt.NBTTagCompound")).invoke(copy, parsed);
+				Object meta = NMSUtil.getCraftClass("inventory.CraftItemStack").getMethod("getItemMeta", NMSUtil.getNMSClass("world.item.ItemStack")).invoke(null, copy);
+				item.setItemMeta((ItemMeta) meta);
+			} else if (NMSUtil.getMinorVersion() >= 17) {
 				Object parsed = NMSUtil.getNMSClass("nbt.MojangsonParser").getMethod("parse", String.class).invoke(null, tag);
 				NMSUtil.getNMSClass("world.item.ItemStack").getMethod("setTag", NMSUtil.getNMSClass("nbt.NBTTagCompound")).invoke(copy, parsed);
 				Object meta = NMSUtil.getCraftClass("inventory.CraftItemStack").getMethod("getItemMeta", NMSUtil.getNMSClass("world.item.ItemStack")).invoke(null, copy);
